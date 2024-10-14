@@ -1,32 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "tutorialmod",
+	"id": "strongermobs",
 	"version": "${version}",
-	"name": "Tutorial Mod",
-	"description": "This is an Tutorial Mod",
+	"name": "Stronger Mobs",
+	"description": "Makes Vanilla mobs stronger",
 	"authors": [
-		"Me!"
+		"Steakboi"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "MIT",
-	"icon": "assets/tutorialmod/icon.png",
+	"icon": "assets/strongermobs/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.steakboi.tutorialmod.TutorialMod"
+			"net.steakboi.strongermobs.StrongerMobsMod"
 		],
 		"fabric-datagen": [
-			"net.steakboi.tutorialmod.TutorialModDataGenerator"
+			"net.steakboi.strongermobs.StrongerMobsDataGenerator"
 		],
 		"client": [
-			"net.steakboi.tutorialmod.TutorialModClient"
+			"net.steakboi.strongermobs.StrongerMobsClient"
 		]
 	},
 	"mixins": [
-		"tutorialmod.mixins.json"
+		"strongermobs.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.7",

@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "net.steakboi.tutorialmod.mixin",
+	"package": "net.steakboi.strongermobs.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"StrongerMobsMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

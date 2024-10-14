@@ -1,8 +1,8 @@
-package net.steakboi.tutorialmod;
+package net.steakboi.strongermobs;
 
 import net.fabricmc.api.ClientModInitializer;
 
-public class TutorialModClient implements ClientModInitializer {
+public class StrongerMobsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
