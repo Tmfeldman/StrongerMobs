@@ -25,9 +25,7 @@ All armor pieces will be of the same material with the following probabilities:
 | Diamond   | 40%         |
 | Netherite | 30%         |
 
-Each armor piece has a 50% chance of spawning with a protection enchantment
-between II and V which will be either protection or projectile protection 
-
+Each armor piece will have a protection enchantment between II and V
 
 ### Zombie, Husk & Zombie Villager
 
@@ -46,8 +44,7 @@ Each bow has a 13% chance to receive punch, and a 13% chance to receive flame.
 
 Each Piglin has an 80% to gain an armor piece for each slot. 
 Each armor piece has a 65% to be gold and a 35% chance to be netherite.
-Each armor piece has a 50% chance of spawning with a protection enchantment
-between II and V which will be either protection or projectile protection.
+Each armor piece will have a protection enchantment between II and V
 Additionally, all boots will be enchanted with soul speed I, II, or II
 
 Each Piglin will have an equal chance to spawn with a crossbow or a sword while zombie piglins always spawn with swords.

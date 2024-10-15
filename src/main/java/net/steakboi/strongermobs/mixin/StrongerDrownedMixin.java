@@ -14,6 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class StrongerDrownedMixin {
     @Inject(at = @At("HEAD"), method = "initEquipment(Lnet/minecraft/util/math/random/Random;Lnet/minecraft/world/LocalDifficulty;)V")
     private void ReplaceInitEquipment(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
-        StrongerMobsMod.EquipArmor(random, localDifficulty, (MobEntity) (Object) this);
+        StrongerMobsMod.EquipArmor(random, (MobEntity) (Object) this);
     }
 }

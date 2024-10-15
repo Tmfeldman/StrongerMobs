@@ -9,12 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
 
 import java.util.*;
 
 import static net.minecraft.enchantment.Enchantments.*;
-import static net.minecraft.entity.mob.MobEntity.getEquipmentForSlot;
 
 public class StrongerMobsMod implements ModInitializer {
 	public static final String MOD_ID = "strongermobs";
@@ -73,13 +71,8 @@ public class StrongerMobsMod implements ModInitializer {
 			} else {
 				armorPiece = new ItemStack(PiglinArmorMap.get(StrongerMobsMod.PiglinGearType.NETHERITE).get(equipmentSlot));
 			}
-			if (random.nextInt(2) == 1) {
-				if (random.nextInt(2) == 1) {
-					armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), random.nextInt(4) + 2);
-				} else {
-					armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROJECTILE_PROTECTION).get(), random.nextInt(4) + 2);
-				}
-			}
+
+			armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), random.nextInt(4) + 2);
 			if (equipmentSlot == EquipmentSlot.FEET) {
 				armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(SOUL_SPEED).get(), random.nextInt(3) + 1);
 			}
@@ -87,38 +80,36 @@ public class StrongerMobsMod implements ModInitializer {
 		}
 	}
 
-	public static void EquipArmor(Random random, LocalDifficulty localDifficulty, MobEntity mobEntity){
-		if (localDifficulty.getClampedLocalDifficulty() > 0) {
-			int quality = curveInt(random.nextInt(101));
-			List<EquipmentSlot> equipmentSlots = new java.util.ArrayList<>(Arrays.stream(EquipmentSlot.values()).toList());
-			Collections.shuffle(equipmentSlots);
+	public static void EquipArmor(Random random, MobEntity mobEntity){
+		int quality = curveInt(random.nextInt(101));
+		List<EquipmentSlot> equipmentSlots = new java.util.ArrayList<>(Arrays.stream(EquipmentSlot.values()).toList());
+		Collections.shuffle(equipmentSlots);
 
-			int i = 1;
-			int armor_limit = random.nextInt(7);
-			for (EquipmentSlot equipmentSlot : equipmentSlots) {
-				if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-					ItemStack itemStack = mobEntity.getEquippedStack(equipmentSlot);
-					if (i >= armor_limit) {
-						break;
-					}
-					i++;
-					if (itemStack.isEmpty()) {
-						Item item = getEquipmentForSlot(equipmentSlot, quality);
-						if (item != null) {
-							ItemStack armor_piece = new ItemStack(item);
-							if (random.nextInt(2) == 1) {
-								if (random.nextInt(2) == 1) {
-									armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), random.nextInt(4) + 2);
-								} else {
-									armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROJECTILE_PROTECTION).get(), random.nextInt(4) + 2);
-								}
-							}
-							mobEntity.equipStack(equipmentSlot, armor_piece);
-						}
+		int i = 1;
+		int armor_limit = random.nextInt(7);
+
+		for (EquipmentSlot equipmentSlot : equipmentSlots) {
+			if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+				ItemStack itemStack = mobEntity.getEquippedStack(equipmentSlot);
+				if (i >= armor_limit) {
+					break;
+				}
+				i++;
+				if (itemStack.isEmpty()) {
+					System.out.println("ItemStack Empty");
+					Item item = getEquipmentForSlot(equipmentSlot, quality);
+					if (item != null) {
+						ItemStack armor_piece = new ItemStack(item);
+						armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), random.nextInt(4) + 2);
+						mobEntity.equipStack(equipmentSlot, armor_piece);
 					}
 				}
 			}
 		}
+	}
+
+	public static Item getEquipmentForSlot(EquipmentSlot equipmentSlot, int quality) {
+		return getArmorMap(equipmentSlot, quality);
 	}
 
 	public static Item getArmorMap(EquipmentSlot equipmentSlot, int Int){
