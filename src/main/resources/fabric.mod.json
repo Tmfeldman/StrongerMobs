@@ -13,7 +13,7 @@
 	},
 	"license": "MIT",
 	"icon": "assets/strongermobs/icon.png",
-	"environment": "*",
+	"environment": "server",
 	"entrypoints": {
 		"main": [
 			"net.steakboi.strongermobs.StrongerMobsMod"

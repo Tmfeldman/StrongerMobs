@@ -4,15 +4,7 @@ Serverside mod which increases the strength of vanilla hostile mobs. Affected mo
 
 ## Zombie, Husk, Zombie Villager, Drowned, Skeleton, Stray, & Bogged
 
-Each of these mobs will spawn with a random number of armor pieces with the following probabilities:
-
-| Number Of Armor Pieces | Probability |
-|------------------------|-------------|
-| 0                      | 29%         |
-| 1                      | 14%         |
-| 2                      | 14%         |
-| 3                      | 14%         |
-| 4                      | 29%         |
+Each of these mobs has a 55% to gain an armor piece for each slot.
 
 All armor pieces will be of the same material with the following probabilities:
 
@@ -45,7 +37,6 @@ Each bow has a 13% chance to receive punch, and a 13% chance to receive flame.
 Each Piglin has an 80% to gain an armor piece for each slot. 
 Each armor piece has a 65% to be gold and a 35% chance to be netherite.
 Each armor piece will have a protection enchantment between II and V
-Additionally, all boots will be enchanted with soul speed I, II, or II
 
 Each Piglin will have an equal chance to spawn with a crossbow or a sword while zombie piglins always spawn with swords.
 Each sword will have a 65% chance to be gold and 35% chance to be netherite.
