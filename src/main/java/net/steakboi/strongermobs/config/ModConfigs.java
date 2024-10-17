@@ -4,46 +4,6 @@ package net.steakboi.strongermobs.config;
 import com.mojang.datafixers.util.Pair;
 import net.steakboi.strongermobs.StrongerMobsMod;
 
-//{
-//        "Overworld.armorChancePerSlotPercentace" : "Armor Chance Per Slot Percentage [0-100]",
-//        "Overworld.maxArmorPieces" : "Max Armor Pieces",
-//        "Overworld.minArmorPieces" : "Min Armor Pieces",
-//        "Overworld.maxProtectionLevel" : "Max Protection Level",
-//        "Overworld.minProtectionLevel" : "Min Protection Level",
-//        "Overworld.leatherArmorWeight" : "Leather Armor Weight",
-//        "Overworld.goldArmorWeight" : "Gold Armor Weight",
-//        "Overworld.chainmailArmorWeight" : "Chainmail Armor Weight",
-//        "Overworld.ironArmorWeight" : "Iron Armor Weight",
-//        "Overworld.diamondArmorWeight" : "Diamond Armor Weight",
-//        "Overworld.netheriteArmorWeight" : "Netherite Armor Weight",
-//        "Overworld.Zombie.zombieSwordChance" : "Zombie Sword Chance",
-//        "Overworld.Zombie.goldSwordWeight" : "Gold Sword Weight",
-//        "Overworld.Zombie.ironSwordWeight" : "Iron Sword Weight",
-//        "Overworld.Zombie.diamondSwordWeight" : "Diamond Sword Weight",
-//        "Overworld.Zombie.netheriteSwordWeight" : "Netherite Sword Weight",
-//        "Overworld.Zombie.maxSharpnessLevel" : "Max Sharpness Level",
-//        "Overworld.Zombie.minSharpnessLevel" : "Min Sharpness Level",
-//        "Overworld.Zombie.fireAspectChance" : "Fire Aspect Chance [0-100]",
-//        "Overworld.Zombie.knockbackChance" : "Knockback Chance [0-100]",
-//        "Overworld.Skeleton.maxPowerLevel" : "Max Power Level",
-//        "Overworld.Skeleton.minPowerLevel" : "Min Power Level",
-//        "Overworld.Skeleton.flameChance" : "Flame Chance [0-100]",
-//        "Overworld.Skeleton.punchChance" : "Punch Chance [0-100]",
-//        "Nether.armorChancePerSlotPercentace" : "Armor Chance Per Slot [0-100]",
-//        "Nether.maxArmorPieces" : "Max Armor Pieces",
-//        "Nether.minArmorPieces" : "Min Armor Pieces",
-//        "Nether.maxProtectionLevel" : "Max Protection Level",
-//        "Nether.minProtectionLevel" : "Min Protection Level",
-//        "Nether.goldArmorWeight" : "Gold Armor Weight",
-//        "Nether.netheriteArmorWeight" : "Netherite Armor Weight",
-//        "Nether.goldSwordWeight" : "Gold Sword Weight",
-//        "Nether.netheriteSwordWeight" : "Netherite Sword Weight",
-//        "Nether.maxSharpnessLevel" : "Max Sharpness Level",
-//        "Nether.minSharpnessLevel" : "Min Sharpness Level",
-//        "Nether.fireAspectChance" : "Fire Aspect Chance [0-100]",
-//        "Nether.knockbackChance" : "Knockback Chance [0-100]"
-//        }
-
 public class ModConfigs {
     public static SimpleConfig CONFIG;
     private static ModConfigProvider configs;
