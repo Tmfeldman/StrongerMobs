@@ -1,6 +1,6 @@
 # Stronger Hostile Mobs 1.21
 
-Serverside mod which increases the strength of vanilla hostile mobs. Affected mobs listed below
+Serverside mod which increases the strength of vanilla hostile mobs. Affected mobs listed below. All values are configurable
 
 ## Zombie, Husk, Zombie Villager, Drowned, Skeleton, Stray, & Bogged
 
