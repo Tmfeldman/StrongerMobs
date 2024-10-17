@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.random.Random;
+import net.steakboi.strongermobs.config.ModConfigs;
 
 import java.util.*;
 
@@ -18,12 +19,11 @@ import static net.minecraft.enchantment.Enchantments.*;
 
 public class StrongerMobsMod implements ModInitializer {
 	public static final String MOD_ID = "strongermobs";
-	public static final net.steakboi.strongermobs.StrongerMobsConfig CONFIG = net.steakboi.strongermobs.StrongerMobsConfig.createAndLoad();
 
 	@Override
 	public void onInitialize() {
 		//CONFIG
-
+		ModConfigs.registerConfigs();
 	}
 	public enum PiglinGearType {
 		NETHERITE,
@@ -68,17 +68,17 @@ public class StrongerMobsMod implements ModInitializer {
 	}};
 
 	public static ItemStack getPiglinSword(Random random, MobEntity mobEntity) {
-		int gold_sword_weight = max(CONFIG.nestedNetherMobOptions.goldSwordWeight(),0);
-		int netherite_sword_weight = max(CONFIG.nestedNetherMobOptions.netheriteSwordWeight(),0);
-		int min_sharpness = max(CONFIG.nestedNetherMobOptions.minSharpnessLevel(),0);
-		int max_sharpness = max(CONFIG.nestedNetherMobOptions.netheriteSwordWeight(),min_sharpness);
+		int gold_sword_weight = max(ModConfigs.NetherGoldSwordWeight,0);
+		int netherite_sword_weight = max(ModConfigs.NetherNetheriteSwordWeight,0);
+		int min_sharpness = max(ModConfigs.NetherMaxSharpnessLevel,0);
+		int max_sharpness = max(ModConfigs.NetherMinSharpnessLevel,min_sharpness);
 		int sharpness_level = min_sharpness;
 		if (max_sharpness > min_sharpness) {
 			sharpness_level += 1;
 			sharpness_level += random.nextInt(max_sharpness - min_sharpness);
 		}
-		int fireAspectChance = max(min(CONFIG.nestedNetherMobOptions.fireAspectChance(), 100), 0);
-		int knockbackChance = max(min(CONFIG.nestedNetherMobOptions.knockbackChance(), 100), 0);
+		int fireAspectChance = max(min(ModConfigs.NetherFireAspectChance, 100), 0);
+		int knockbackChance = max(min(ModConfigs.NetherKnockbackChance, 100), 0);
 
 		Map<Item, Integer> weightmap = new HashMap<>() {{
 			put(Items.NETHERITE_SWORD, netherite_sword_weight);
@@ -94,15 +94,15 @@ public class StrongerMobsMod implements ModInitializer {
 	}
 
 	public static ItemStack getSkeletonBow(Random random, MobEntity mobEntity) {
-		int min_power = max(CONFIG.nestedOverworldMobOptions.nestedSkeletonMobOptions.minPowerLevel(),0);
-		int max_power = max(CONFIG.nestedOverworldMobOptions.nestedSkeletonMobOptions.maxPowerLevel(),min_power);
+		int min_power = max(ModConfigs.OverworldSkeletonMinPowerLevel,0);
+		int max_power = max(ModConfigs.OverworldSkeletonMaxPowerLevel,min_power);
 		int power_level = min_power;
 		if (max_power > min_power) {
 			power_level += 1;
 			power_level += random.nextInt(max_power - min_power);
 		}
-		int flameChance = max(min(CONFIG.nestedOverworldMobOptions.nestedSkeletonMobOptions.flameChance(), 100), 0);
-		int punchChance = max(min(CONFIG.nestedOverworldMobOptions.nestedSkeletonMobOptions.punchChance(), 100), 0);
+		int flameChance = max(min(ModConfigs.OverworldSkeletonFlameChance, 100), 0);
+		int punchChance = max(min(ModConfigs.OverworldSkeletonPunchChance, 100), 0);
 
 		ItemStack bow = new ItemStack(Items.BOW);
 		bow.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(POWER).get(), power_level);
@@ -112,20 +112,20 @@ public class StrongerMobsMod implements ModInitializer {
 	}
 
 	public static ItemStack getZombieSword(Random random, MobEntity mobEntity) {
-		int gold_sword_weight = max(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.goldSwordWeight(),0);
-		int iron_sword_weight = max(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.ironSwordWeight(),0);
-		int diamond_sword_weight = max(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.diamondSwordWeight(),0);
-		int netherite_sword_weight = max(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.netheriteSwordWeight(),0);
-		int min_sharpness = max(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.minSharpnessLevel(),0);
-		int max_sharpness = max(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.maxSharpnessLevel(),min_sharpness);
+		int gold_sword_weight = max(ModConfigs.OverworldZombieGoldSwordWeight,0);
+		int iron_sword_weight = max(ModConfigs.OverworldZombieIronSwordWeight,0);
+		int diamond_sword_weight = max(ModConfigs.OverworldZombieDiamondSwordWeight,0);
+		int netherite_sword_weight = max(ModConfigs.OverworldZombieNetheriteSwordWeight,0);
+		int min_sharpness = max(ModConfigs.OverworldZombieMinSharpnessLevel,0);
+		int max_sharpness = max(ModConfigs.OverworldZombieMaxSharpnessLevel,min_sharpness);
 		int sharpness_level = min_sharpness;
 		if (max_sharpness > min_sharpness) {
 			sharpness_level += 1;
 			sharpness_level += random.nextInt(max_sharpness - min_sharpness);
 		}
-		int fireAspectChance = max(min(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.fireAspectChance(), 100), 0);
-		int knockbackChance = max(min(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.knockbackChance(), 100), 0);
-		int swordChance = max(min(CONFIG.nestedOverworldMobOptions.nestedZombieMobOptions.zombieSwordChance(), 100), 0);
+		int fireAspectChance = max(min(ModConfigs.OverworldZombieFireAspectChance, 100), 0);
+		int knockbackChance = max(min(ModConfigs.OverworldZombieKnockbackChance, 100), 0);
+		int swordChance = max(min(ModConfigs.OverworldZombieZombieSwordChance, 100), 0);
 
 		if (random.nextInt(100) <  swordChance ) {
 			Map<Item, Integer> weightmap = new HashMap<>() {{
@@ -148,58 +148,66 @@ public class StrongerMobsMod implements ModInitializer {
 	}
 
 	public static void EquipPiglinArmor(Random random, MobEntity mobEntity){
-		int maxArmor = max(0, CONFIG.nestedNetherMobOptions.maxArmorPieces());
+		int maxArmor = max(min(4, ModConfigs.NetherMaxArmorPieces), 0);
+		int minArmor = max(min(maxArmor, ModConfigs.NetherMinArmorPieces), 0);
+		int armorChance = max(min(ModConfigs.NetherArmorChancePerSlotPercentage, 100), 0);
+
+		int armorToEquip = minArmor;
+		for (int i = 0; i < maxArmor- minArmor; i++){
+			if (random.nextInt(100) <armorChance) armorToEquip += 1;
+		}
 
 		List<EquipmentSlot> EquipmentSlots = Arrays.asList(EquipmentSlot.HEAD, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.FEET);
 		Collections.shuffle(EquipmentSlots);
 
-		int i = 0;
-		for (EquipmentSlot slot : EquipmentSlots) {
-			i++;
-			equipPiglinArmor(slot, random, mobEntity);
-			if (i > maxArmor) break;
+		for (int i = 0; i < armorToEquip; i++) {
+			equipPiglinArmor(EquipmentSlots.get(i), random, mobEntity);
 		}
 	}
 
 	private static void equipPiglinArmor(EquipmentSlot equipmentSlot, Random random, MobEntity mobEntity) {
-		int armorChance = max(min(CONFIG.nestedNetherMobOptions.armorChancePerSlotPercentace(), 100), 0);
-		int netherite_armor_weight = max(0, CONFIG.nestedNetherMobOptions.netheriteArmorWeight());
-		int gold_armor_weight = max(0, CONFIG.nestedNetherMobOptions.goldArmorWeight());
-		int min_protection = max(CONFIG.nestedNetherMobOptions.minProtectionLevel(),0);
-		int max_protection = max(CONFIG.nestedNetherMobOptions.maxProtectionLevel(),min_protection);
+		int netherite_armor_weight = max(0, ModConfigs.NetherNetheriteArmorWeight);
+		int gold_armor_weight = max(0, ModConfigs.NetherGoldArmorWeight);
+		int min_protection = max(ModConfigs.NetherMinProtectionLevel,0);
+		int max_protection = max(ModConfigs.NetherMaxProtectionLevel,min_protection);
 		int protection_level = min_protection;
 		if (max_protection > min_protection) {
 			protection_level += 1;
 			protection_level += random.nextInt(max_protection - min_protection);
 		}
 
-		if (random.nextInt(100) < armorChance) {
-			Map<Item, Integer> weightmap = new HashMap<>() {{
-				put(PiglinArmorMap.get(StrongerMobsMod.PiglinGearType.NETHERITE).get(equipmentSlot), netherite_armor_weight);
-				put(PiglinArmorMap.get(StrongerMobsMod.PiglinGearType.GOLD).get(equipmentSlot), gold_armor_weight);
-			}};
-			Item armorItem = pickWeighted(weightmap, random);
+		Map<Item, Integer> weightmap = new HashMap<>() {{
+			put(PiglinArmorMap.get(StrongerMobsMod.PiglinGearType.NETHERITE).get(equipmentSlot), netherite_armor_weight);
+			put(PiglinArmorMap.get(StrongerMobsMod.PiglinGearType.GOLD).get(equipmentSlot), gold_armor_weight);
+		}};
+		Item armorItem = pickWeighted(weightmap, random);
 
-			ItemStack armorPiece = new ItemStack(armorItem);
-			armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protection_level);
-			mobEntity.equipStack(equipmentSlot, armorPiece);
-		}
+		ItemStack armorPiece = new ItemStack(armorItem);
+		armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protection_level);
+		mobEntity.equipStack(equipmentSlot, armorPiece);
+
 	}
 
 	public static void EquipArmor(Random random, MobEntity mobEntity){
-		int leather_armor_weight = max(0, CONFIG.nestedOverworldMobOptions.leatherArmorWeight());
-		int gold_armor_weight = max(0, CONFIG.nestedOverworldMobOptions.goldArmorWeight());
-		int chainmail_armor_weight = max(0, CONFIG.nestedOverworldMobOptions.chainmailArmorWeight());
-		int iron_armor_weight = max(0, CONFIG.nestedOverworldMobOptions.ironArmorWeight());
-		int diamond_armor_weight = max(0, CONFIG.nestedOverworldMobOptions.diamondArmorWeight());
-		int netherite_armor_weight = max(0, CONFIG.nestedOverworldMobOptions.netheriteArmorWeight());
-		int maxArmor = max(0, CONFIG.nestedOverworldMobOptions.maxArmorPieces());
-		int min_protection = max(CONFIG.nestedOverworldMobOptions.minProtectionLevel(),0);
-		int max_protection = max(CONFIG.nestedOverworldMobOptions.maxProtectionLevel(),min_protection);
+		int leather_armor_weight = max(0, ModConfigs.OverworldLeatherArmorWeight);
+		int gold_armor_weight = max(0, ModConfigs.OverworldGoldArmorWeight);
+		int chainmail_armor_weight = max(0, ModConfigs.OverworldChainmailArmorWeight);
+		int iron_armor_weight = max(0, ModConfigs.OverworldIronArmorWeight);
+		int diamond_armor_weight = max(0, ModConfigs.OverworldDiamondArmorWeight);
+		int netherite_armor_weight = max(0, ModConfigs.OverworldNetheriteArmorWeight);
+		int maxArmor = max(min(4, ModConfigs.OverworldMaxArmorPieces), 0);
+		int minArmor = max(min(maxArmor, ModConfigs.OverworldMinArmorPieces), 0);
+		int armorChance = max(min(ModConfigs.OverworldArmorChancePerSlotPercentage, 100), 0);
+		int min_protection = max(ModConfigs.OverworldMinProtectionLevel,0);
+		int max_protection = max(ModConfigs.OverworldMaxProtectionLevel,min_protection);
 		int protection_level = min_protection;
 		if (max_protection > min_protection) {
 			protection_level += 1;
 			protection_level += random.nextInt(max_protection - min_protection);
+		}
+		int armorToEquip = minArmor;
+		for (int i = 0; i < (maxArmor - minArmor); i++){
+			if (random.nextInt(100) < armorChance) armorToEquip += 1;
 		}
 
 		Map<Integer, Integer> weightmap = new HashMap<>() {{
@@ -215,25 +223,19 @@ public class StrongerMobsMod implements ModInitializer {
 		List<EquipmentSlot> EquipmentSlots = Arrays.asList(EquipmentSlot.HEAD, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.FEET);
 		Collections.shuffle(EquipmentSlots);
 
-		int i = 0;
-		for (EquipmentSlot slot : EquipmentSlots) {
-			i++;
-			EquipArmorSlot(random, mobEntity, quality, slot, protection_level);
-			if (i > maxArmor) break;
+		for (int i = 0; i < armorToEquip; i++) {
+			EquipArmorSlot(mobEntity, quality, EquipmentSlots.get(i), protection_level);
 		}
 	}
-	public static void EquipArmorSlot(Random random, MobEntity mobEntity, int quality, EquipmentSlot equipmentSlot, int protectionLevel){
-		int armorChance = max(min(CONFIG.nestedOverworldMobOptions.armorChancePerSlotPercentace(), 100), 0);
-		if (random.nextInt(100) < armorChance) {
-			if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-				ItemStack itemStack = mobEntity.getEquippedStack(equipmentSlot);
-				if (itemStack.isEmpty()) {
-					Item item = getEquipmentForSlot(equipmentSlot, quality);
-					if (item != null) {
-						ItemStack armor_piece = new ItemStack(item);
-						armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protectionLevel);
-						mobEntity.equipStack(equipmentSlot, armor_piece);
-					}
+	public static void EquipArmorSlot(MobEntity mobEntity, int quality, EquipmentSlot equipmentSlot, int protectionLevel){
+		if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+			ItemStack itemStack = mobEntity.getEquippedStack(equipmentSlot);
+			if (itemStack.isEmpty()) {
+				Item item = getEquipmentForSlot(equipmentSlot, quality);
+				if (item != null) {
+					ItemStack armor_piece = new ItemStack(item);
+					armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protectionLevel);
+					mobEntity.equipStack(equipmentSlot, armor_piece);
 				}
 			}
 		}
