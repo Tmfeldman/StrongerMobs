@@ -1,4 +1,4 @@
-# Stronger Hostile Mobs 1.21
+# Stronger Hostile Mobs 1.20
 
 Serverside mod which increases the strength of vanilla hostile mobs. Affected mobs listed below. All values are configurable
 
