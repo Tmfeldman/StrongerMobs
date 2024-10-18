@@ -1,9 +1,13 @@
 {
 	"required": true,
-	"package": "net.steakboi.templateMod.mixin",
+	"package": "net.steakboi.strongermobs.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"StrongerZombieMixin",
+		"StrongerSkeletonMixin",
+		"StrongerDrownedMixin",
+		"StrongerPiglinMixin",
+		"StrongerZombiePiglinMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

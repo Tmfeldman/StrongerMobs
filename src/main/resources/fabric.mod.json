@@ -1,11 +1,11 @@
 {
 	"schemaVersion": 1,
-	"id": "template-mod",
+	"id": "strongermobs",
 	"version": "${version}",
-	"name": "Template Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Stronger Mobs",
+	"description": "Makes Vanilla mobs stronger",
 	"authors": [
-		"Me!"
+		"Steakboi"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -16,18 +16,21 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.steakboi.strongermobs.TemplateMod"
+			"net.steakboi.strongermobs.StrongerMobsMod"
 		],
 		"fabric-datagen": [
-			"net.steakboi.strongermobs.TemplateModDataGenerator"
+			"net.steakboi.strongermobs.StrongerMobsDataGenerator"
+		],
+		"client": [
+			"net.steakboi.strongermobs.StrongerMobsClient"
 		]
 	},
 	"mixins": [
 		"template-mod.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.7",
-		"minecraft": "~1.20.1",
+		"fabricloader": ">=0.16.3",
+		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
