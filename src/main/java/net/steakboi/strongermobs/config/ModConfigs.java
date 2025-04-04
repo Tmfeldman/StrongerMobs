@@ -46,7 +46,33 @@ public class ModConfigs {
     public static int NetherMinSharpnessLevel;
     public static int NetherFireAspectChance;
     public static int NetherKnockbackChance;
-
+    public static int ArmorTrimPatternNoneWeight;
+    public static int ArmorTrimPatternSentryWeight;
+    public static int ArmorTrimPatternDuneWeight;
+    public static int ArmorTrimPatternCoastWeight;
+    public static int ArmorTrimPatternWildWeight;
+    public static int ArmorTrimPatternWardWeight;
+    public static int ArmorTrimPatternEyeWeight;
+    public static int ArmorTrimPatternVexWeight;
+    public static int ArmorTrimPatternTideWeight;
+    public static int ArmorTrimPatternSnoutWeight;
+    public static int ArmorTrimPatternRibWeight;
+    public static int ArmorTrimPatternSpireWeight;
+    public static int ArmorTrimPatternWayfinderWeight;
+    public static int ArmorTrimPatternShaperWeight;
+    public static int ArmorTrimPatternSilenceWeight;
+    public static int ArmorTrimPatternRaiserWeight;
+    public static int ArmorTrimPatternHostWeight;
+    public static int ArmorTrimMaterialQuartzWeight;
+    public static int ArmorTrimMaterialIronWeight;
+    public static int ArmorTrimMaterialNetheriteWeight;
+    public static int ArmorTrimMaterialRedstoneWeight;
+    public static int ArmorTrimMaterialCopperWeight;
+    public static int ArmorTrimMaterialGoldWeight;
+    public static int ArmorTrimMaterialEmeraldWeight;
+    public static int ArmorTrimMaterialDiamondWeight;
+    public static int ArmorTrimMaterialLapisWeight;
+    public static int ArmorTrimMaterialAmethystWeight;
 
     public static void registerConfigs() {
         configs = new ModConfigProvider();
@@ -95,6 +121,33 @@ public class ModConfigs {
         configs.addKeyValuePair(new Pair<>("Nether.minSharpnessLevel" , 2),  "Min Sharpness Level");
         configs.addKeyValuePair(new Pair<>("Nether.fireAspectChance" , 13),  "Fire Aspect Chance [0-100]");
         configs.addKeyValuePair(new Pair<>("Nether.knockbackChance" , 13),  "Knockback Chance [0-100]");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.NoneWeight", 1), "No Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.SentryWeight", 0), "Sentry Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.DuneWeight", 0), "Dune Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.CoastWeight", 0), "Coast Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.WardWeight", 0), "Ward Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.EyeWeight", 0), "Eye Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.VexWeight", 0), "Vex Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.TideWeight", 0), "Tide Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.SnoutWeight", 0), "Snout Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.RibWeight", 0), "Rib Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.SpireWeight", 0), "Spire Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.WayfinderWeight", 0), "Wayfinder Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.ShaperWeight", 0), "Shaper Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.SilenceWeight", 0), "Silence Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.RaiserWeight", 0), "Raiser Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Pattern.HostWeight", 0), "Host Pattern Armor Trim Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.QuartzWeight", 0), "Quartz Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.IronWeight", 0), "Iron Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.NetheriteWeight", 0), "Netherite Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.RedstoneWeight", 0), "Redstone Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.CopperWeight", 0), "Copper Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.GoldWeight", 0), "Gold Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.EmeraldWeight", 0), "Emerald Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.DiamondWeight", 0), "Diamond Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.LapisWeight", 0), "Lapis Armor Trim Material Weight");
+        configs.addKeyValuePair(new Pair<>("ArmorTrim.Material.AmethystWeight", 0), "Amethyst Armor Trim Material Weight");
+        
     }
 
     private static void assignConfigs() {
@@ -135,6 +188,33 @@ public class ModConfigs {
         NetherMinSharpnessLevel = CONFIG.getOrDefault("Nether.minSharpnessLevel" , 2);
         NetherFireAspectChance = CONFIG.getOrDefault("Nether.fireAspectChance" , 13);
         NetherKnockbackChance = CONFIG.getOrDefault("Nether.knockbackChance" , 13);
+        ArmorTrimPatternNoneWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.NoneWeight" , 1);
+        ArmorTrimPatternSentryWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.SentryWeight" , 0);
+        ArmorTrimPatternDuneWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.DuneWeight" , 0);
+        ArmorTrimPatternCoastWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.CoastWeight" , 0);
+        ArmorTrimPatternWildWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.WildWeight" , 0);
+        ArmorTrimPatternWardWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.WardWeight" , 0);
+        ArmorTrimPatternEyeWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.EyeWeight" , 0);
+        ArmorTrimPatternVexWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.VexWeight" , 0);
+        ArmorTrimPatternTideWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.TideWeight" , 0);
+        ArmorTrimPatternSnoutWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.SnoutWeight" , 0);
+        ArmorTrimPatternRibWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.RibWeight" , 0);
+        ArmorTrimPatternSpireWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.SpireWeight" , 0);
+        ArmorTrimPatternWayfinderWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.WayfinderWeight" , 0);
+        ArmorTrimPatternShaperWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.ShaperWeight" , 0);
+        ArmorTrimPatternSilenceWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.SilenceWeight" , 0);
+        ArmorTrimPatternRaiserWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.RaiserWeight" , 0);
+        ArmorTrimPatternHostWeight = CONFIG.getOrDefault("ArmorTrim.Pattern.HostWeight" , 0);
+        ArmorTrimMaterialQuartzWeight = CONFIG.getOrDefault("ArmorTrim.Material.QuartzWeight", 0);
+        ArmorTrimMaterialIronWeight = CONFIG.getOrDefault("ArmorTrim.Material.IronWeight", 0);
+        ArmorTrimMaterialNetheriteWeight = CONFIG.getOrDefault("ArmorTrim.Material.NetheriteWeight", 0);
+        ArmorTrimMaterialRedstoneWeight = CONFIG.getOrDefault("ArmorTrim.Material.RedstoneWeight", 0);
+        ArmorTrimMaterialCopperWeight = CONFIG.getOrDefault("ArmorTrim.Material.CopperWeight", 0);
+        ArmorTrimMaterialGoldWeight = CONFIG.getOrDefault("ArmorTrim.Material.GoldWeight", 0);
+        ArmorTrimMaterialEmeraldWeight = CONFIG.getOrDefault("ArmorTrim.Material.EmeraldWeight", 0);
+        ArmorTrimMaterialDiamondWeight = CONFIG.getOrDefault("ArmorTrim.Material.DiamondWeight", 0);
+        ArmorTrimMaterialLapisWeight = CONFIG.getOrDefault("ArmorTrim.Material.LapisWeight", 0);
+        ArmorTrimMaterialAmethystWeight = CONFIG.getOrDefault("ArmorTrim.Material.AmethystWeight", 0);
 
         System.out.println("All " + configs.getConfigsList().size() + " have been set properly");
     }
