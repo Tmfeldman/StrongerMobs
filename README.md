@@ -43,4 +43,12 @@ Each sword will have a 65% chance to be gold and 35% chance to be netherite.
 Each sword will have sharpness between II and V.
 Each sword has a 13% chance to receive fire aspect, and a 13% chance to receive knockback.
 
+## Armor Trims
 
+### Armor Trim Patterns
+In the config file, you can set the weights which determine the chance of mobs spawning with armor trims.
+By default, this is disabled by setting the weight for no pattern to 1 and all other weights to 0. 
+
+### Armor Trim Materials
+In the config file, you can set the weight of each armor trim material.
+By default, each material has an equal chance of spawning.
