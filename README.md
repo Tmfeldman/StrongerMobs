@@ -50,5 +50,5 @@ In the config file, you can set the weights which determine the chance of mobs s
 By default, this is disabled by setting the weight for no pattern to 1 and all other weights to 0. 
 
 ### Armor Trim Materials
-In the config final, you can set the weight of each armor trim material.
+In the config file, you can set the weight of each armor trim material.
 By default, each material has an equal chance of spawning.
