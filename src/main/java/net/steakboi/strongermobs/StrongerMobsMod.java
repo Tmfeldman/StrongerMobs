@@ -2,13 +2,17 @@ package net.steakboi.strongermobs;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
+import net.minecraft.item.trim.*;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import net.steakboi.strongermobs.config.ModConfigs;
 
 import java.util.*;
@@ -160,12 +164,17 @@ public class StrongerMobsMod implements ModInitializer {
 		List<EquipmentSlot> EquipmentSlots = Arrays.asList(EquipmentSlot.HEAD, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.FEET);
 		Collections.shuffle(EquipmentSlots);
 
+		World world = mobEntity.getWorld();
+		RegistryEntry<ArmorTrimPattern> trimPattern = getTrimPattern(random, world);
+		ArmorTrim trimGold = getPiglinTrimGold(trimPattern, world);
+		ArmorTrim trimNetherite = getPiglinTrimNetherite(trimPattern, world);
+
 		for (int i = 0; i < armorToEquip; i++) {
-			equipPiglinArmor(EquipmentSlots.get(i), random, mobEntity);
+			equipPiglinArmor(EquipmentSlots.get(i), random, mobEntity, trimGold, trimNetherite, world);
 		}
 	}
 
-	private static void equipPiglinArmor(EquipmentSlot equipmentSlot, Random random, MobEntity mobEntity) {
+	private static void equipPiglinArmor(EquipmentSlot equipmentSlot, Random random, MobEntity mobEntity, ArmorTrim trimGold, ArmorTrim trimNetherite, World world) {
 		int netherite_armor_weight = max(0, ModConfigs.NetherNetheriteArmorWeight);
 		int gold_armor_weight = max(0, ModConfigs.NetherGoldArmorWeight);
 		int min_protection = max(ModConfigs.NetherMinProtectionLevel,0);
@@ -184,6 +193,13 @@ public class StrongerMobsMod implements ModInitializer {
 
 		ItemStack armorPiece = new ItemStack(armorItem);
 		armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protection_level);
+		if (trimGold != null && trimNetherite != null) {
+			if (((ArmorItem)armorItem).getMaterial() == ArmorMaterials.NETHERITE) {
+				armorPiece.set(DataComponentTypes.TRIM, trimNetherite);
+			} else {
+				armorPiece.set(DataComponentTypes.TRIM, trimGold);
+			}
+		}
 		mobEntity.equipStack(equipmentSlot, armorPiece);
 
 	}
@@ -223,11 +239,14 @@ public class StrongerMobsMod implements ModInitializer {
 		List<EquipmentSlot> EquipmentSlots = Arrays.asList(EquipmentSlot.HEAD, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.FEET);
 		Collections.shuffle(EquipmentSlots);
 
+		World world = mobEntity.getWorld();
+		ArmorTrim armorTrim = getTrim(random, mobEntity, ((ArmorItem) ArmorMap.get(EquipmentSlot.FEET).get(quality)).getMaterial());
+
 		for (int i = 0; i < armorToEquip; i++) {
-			EquipArmorSlot(mobEntity, quality, EquipmentSlots.get(i), protection_level);
+			EquipArmorSlot(mobEntity, quality, EquipmentSlots.get(i), protection_level, armorTrim, world);
 		}
 	}
-	public static void EquipArmorSlot(MobEntity mobEntity, int quality, EquipmentSlot equipmentSlot, int protectionLevel){
+	public static void EquipArmorSlot(MobEntity mobEntity, int quality, EquipmentSlot equipmentSlot, int protectionLevel, ArmorTrim armorTrim, World world){
 		if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
 			ItemStack itemStack = mobEntity.getEquippedStack(equipmentSlot);
 			if (itemStack.isEmpty()) {
@@ -235,6 +254,9 @@ public class StrongerMobsMod implements ModInitializer {
 				if (item != null) {
 					ItemStack armor_piece = new ItemStack(item);
 					armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protectionLevel);
+					if (armorTrim != null) {
+						armor_piece.set(DataComponentTypes.TRIM, armorTrim);
+					}
 					mobEntity.equipStack(equipmentSlot, armor_piece);
 				}
 			}
@@ -251,6 +273,118 @@ public class StrongerMobsMod implements ModInitializer {
 		}
 		return null;
 	}
+
+	private static RegistryEntry<ArmorTrimPattern> getTrimPattern(Random random, World world){
+		int ArmorTrimPatternNoneWeight = max(ModConfigs.ArmorTrimPatternNoneWeight, 0);
+		int ArmorTrimPatternSentryWeight = max(ModConfigs.ArmorTrimPatternSentryWeight, 0);
+		int ArmorTrimPatternDuneWeight = max(ModConfigs.ArmorTrimPatternDuneWeight, 0);
+		int ArmorTrimPatternCoastWeight = max(ModConfigs.ArmorTrimPatternCoastWeight, 0);
+		int ArmorTrimPatternWildWeight = max(ModConfigs.ArmorTrimPatternWildWeight, 0);
+		int ArmorTrimPatternWardWeight = max(ModConfigs.ArmorTrimPatternWardWeight, 0);
+		int ArmorTrimPatternEyeWeight = max(ModConfigs.ArmorTrimPatternEyeWeight, 0);
+		int ArmorTrimPatternVexWeight = max(ModConfigs.ArmorTrimPatternVexWeight, 0);
+		int ArmorTrimPatternTideWeight = max(ModConfigs.ArmorTrimPatternTideWeight, 0);
+		int ArmorTrimPatternSnoutWeight = max(ModConfigs.ArmorTrimPatternSnoutWeight, 0);
+		int ArmorTrimPatternRibWeight = max(ModConfigs.ArmorTrimPatternRibWeight, 0);
+		int ArmorTrimPatternSpireWeight = max(ModConfigs.ArmorTrimPatternSpireWeight, 0);
+		int ArmorTrimPatternWayfinderWeight = max(ModConfigs.ArmorTrimPatternWayfinderWeight, 0);
+		int ArmorTrimPatternShaperWeight = max(ModConfigs.ArmorTrimPatternShaperWeight, 0);
+		int ArmorTrimPatternSilenceWeight = max(ModConfigs.ArmorTrimPatternSilenceWeight, 0);
+		int ArmorTrimPatternRaiserWeight = max(ModConfigs.ArmorTrimPatternRaiserWeight, 0);
+		int ArmorTrimPatternHostWeight = max(ModConfigs.ArmorTrimPatternHostWeight, 0);
+		Map<RegistryKey<ArmorTrimPattern>, Integer> weightmap = new HashMap<>() {{
+			put(null, ArmorTrimPatternNoneWeight);
+			put(ArmorTrimPatterns.SENTRY, ArmorTrimPatternSentryWeight);
+			put(ArmorTrimPatterns.DUNE, ArmorTrimPatternDuneWeight);
+			put(ArmorTrimPatterns.COAST, ArmorTrimPatternCoastWeight);
+			put(ArmorTrimPatterns.WILD, ArmorTrimPatternWildWeight);
+			put(ArmorTrimPatterns.WARD, ArmorTrimPatternWardWeight);
+			put(ArmorTrimPatterns.EYE, ArmorTrimPatternEyeWeight);
+			put(ArmorTrimPatterns.VEX, ArmorTrimPatternVexWeight);
+			put(ArmorTrimPatterns.TIDE, ArmorTrimPatternTideWeight);
+			put(ArmorTrimPatterns.SNOUT, ArmorTrimPatternSnoutWeight);
+			put(ArmorTrimPatterns.RIB, ArmorTrimPatternRibWeight);
+			put(ArmorTrimPatterns.SPIRE, ArmorTrimPatternSpireWeight);
+			put(ArmorTrimPatterns.WAYFINDER, ArmorTrimPatternWayfinderWeight);
+			put(ArmorTrimPatterns.SHAPER, ArmorTrimPatternShaperWeight);
+			put(ArmorTrimPatterns.SILENCE, ArmorTrimPatternSilenceWeight);
+			put(ArmorTrimPatterns.RAISER, ArmorTrimPatternRaiserWeight);
+			put(ArmorTrimPatterns.HOST, ArmorTrimPatternHostWeight);
+		}};
+
+		Registry<ArmorTrimPattern> ArmorTrimPatternRegistry = world.getRegistryManager().get(RegistryKeys.TRIM_PATTERN);
+
+		RegistryKey<ArmorTrimPattern> pattern = pickWeighted(weightmap, random);
+		if (pattern != null) {
+			return ArmorTrimPatternRegistry.getEntry(ArmorTrimPatternRegistry.get(pattern));
+		} else {
+			return null;
+		}
+	}
+
+	private static RegistryEntry<ArmorTrimMaterial> getTrimMaterial(Random random, World world, ArmorMaterial armorMaterial) {
+		int ArmorTrimMaterialQuartzWeight = max(ModConfigs.ArmorTrimMaterialQuartzWeight, 0);
+		int ArmorTrimMaterialIronWeight = max(ModConfigs.ArmorTrimMaterialIronWeight, 0);
+		int ArmorTrimMaterialNetheriteWeight = max(ModConfigs.ArmorTrimMaterialNetheriteWeight, 0);
+		int ArmorTrimMaterialRedstoneWeight = max(ModConfigs.ArmorTrimMaterialRedstoneWeight, 0);
+		int ArmorTrimMaterialCopperWeight = max(ModConfigs.ArmorTrimMaterialCopperWeight, 0);
+		int ArmorTrimMaterialGoldWeight = max(ModConfigs.ArmorTrimMaterialGoldWeight, 0);
+		int ArmorTrimMaterialEmeraldWeight = max(ModConfigs.ArmorTrimMaterialEmeraldWeight, 0);
+		int ArmorTrimMaterialDiamondWeight = max(ModConfigs.ArmorTrimMaterialDiamondWeight, 0);
+		int ArmorTrimMaterialLapisWeight = max(ModConfigs.ArmorTrimMaterialLapisWeight, 0);
+		int ArmorTrimMaterialAmethystWeight = max(ModConfigs.ArmorTrimMaterialAmethystWeight, 0);
+		Map<RegistryKey<ArmorTrimMaterial>, Integer> weightmap = new HashMap<>() {{
+			put(ArmorTrimMaterials.QUARTZ,ArmorTrimMaterialQuartzWeight);
+			put(ArmorTrimMaterials.IRON,ArmorTrimMaterialIronWeight);
+			put(ArmorTrimMaterials.NETHERITE,ArmorTrimMaterialNetheriteWeight);
+			put(ArmorTrimMaterials.REDSTONE,ArmorTrimMaterialRedstoneWeight);
+			put(ArmorTrimMaterials.COPPER,ArmorTrimMaterialCopperWeight);
+			put(ArmorTrimMaterials.GOLD,ArmorTrimMaterialGoldWeight);
+			put(ArmorTrimMaterials.EMERALD,ArmorTrimMaterialEmeraldWeight);
+			put(ArmorTrimMaterials.DIAMOND,ArmorTrimMaterialDiamondWeight);
+			put(ArmorTrimMaterials.LAPIS,ArmorTrimMaterialLapisWeight);
+			put(ArmorTrimMaterials.AMETHYST,ArmorTrimMaterialAmethystWeight);
+		}};
+		Map<RegistryEntry<ArmorMaterial>, RegistryKey<ArmorTrimMaterial>> materialToTrim = new HashMap<>() {{
+			put(ArmorMaterials.IRON,ArmorTrimMaterials.IRON);
+			put(ArmorMaterials.NETHERITE,ArmorTrimMaterials.NETHERITE);
+			put(ArmorMaterials.GOLD,ArmorTrimMaterials.GOLD);
+			put(ArmorMaterials.DIAMOND,ArmorTrimMaterials.DIAMOND);
+		}};
+		weightmap.remove(materialToTrim.get(armorMaterial));
+		Registry<ArmorTrimMaterial> ArmorTrimMaterialRegistry = world.getRegistryManager().get(RegistryKeys.TRIM_MATERIAL);
+
+		RegistryKey<ArmorTrimMaterial> pattern = pickWeighted(weightmap, random);
+		return ArmorTrimMaterialRegistry.getEntry(ArmorTrimMaterialRegistry.get(pattern));
+	}
+
+	private static ArmorTrim getTrim(Random random, MobEntity mobEntity, RegistryEntry<ArmorMaterial> armorMaterial) {
+		if (
+				armorMaterial != ArmorMaterials.GOLD
+						&& armorMaterial != ArmorMaterials.DIAMOND
+						&& armorMaterial != ArmorMaterials.NETHERITE
+						&& armorMaterial != ArmorMaterials.IRON
+		) {
+			return null;
+		}
+		RegistryEntry<ArmorTrimPattern> trim = getTrimPattern(random, mobEntity.getWorld());
+		if (trim == null){
+			return null;
+		}
+		RegistryEntry<ArmorTrimMaterial> mat = getTrimMaterial(random, mobEntity.getWorld(), armorMaterial.value());
+		return new ArmorTrim(mat, trim);
+	}
+	private static ArmorTrim getPiglinTrimGold(RegistryEntry<ArmorTrimPattern> trim, World world){
+		if (trim == null) return null;
+		Registry<ArmorTrimMaterial> ArmorTrimMaterialRegistry = world.getRegistryManager().get(RegistryKeys.TRIM_MATERIAL);
+		return new ArmorTrim(ArmorTrimMaterialRegistry.getEntry(ArmorTrimMaterialRegistry.get(ArmorTrimMaterials.NETHERITE)), trim);
+	}
+	private static ArmorTrim getPiglinTrimNetherite(RegistryEntry<ArmorTrimPattern> trim, World world){
+		if (trim == null) return null;
+		Registry<ArmorTrimMaterial> ArmorTrimMaterialRegistry = world.getRegistryManager().get(RegistryKeys.TRIM_MATERIAL);
+		return new ArmorTrim(ArmorTrimMaterialRegistry.getEntry(ArmorTrimMaterialRegistry.get(ArmorTrimMaterials.GOLD)), trim);
+	}
+
 	private static final Map<EquipmentSlot, Map<Integer, Item>> ArmorMap = new HashMap<>(){{
 		Map<Integer, Item> BootsMap = new HashMap<>(){{
 			put(0, Items.LEATHER_BOOTS);
