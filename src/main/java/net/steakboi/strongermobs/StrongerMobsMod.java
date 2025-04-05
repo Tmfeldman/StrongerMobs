@@ -1,6 +1,7 @@
 package net.steakboi.strongermobs;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
@@ -199,9 +200,9 @@ public class StrongerMobsMod implements ModInitializer {
 		armorPiece.addEnchantment(PROTECTION, protection_level);
 		if (trimGold != null && trimNetherite != null) {
 			if (((ArmorItem)armorItem).getMaterial() == ArmorMaterials.NETHERITE) {
-				ArmorTrim.apply(world.getRegistryManager(), armorPiece, trimNetherite);
+				armorPiece.set(DataComponentTypes.TRIM, trimNetherite);
 			} else {
-				ArmorTrim.apply(world.getRegistryManager(), armorPiece, trimGold);
+				armorPiece.set(DataComponentTypes.TRIM, trimGold);
 			}
 		}
 		mobEntity.equipStack(equipmentSlot, armorPiece);
@@ -258,7 +259,7 @@ public class StrongerMobsMod implements ModInitializer {
 					ItemStack armor_piece = new ItemStack(item);
 					armor_piece.addEnchantment(PROTECTION, protectionLevel);
 					if (armorTrim != null) {
-						ArmorTrim.apply(world.getRegistryManager(), armor_piece, armorTrim);
+						armor_piece.set(DataComponentTypes.TRIM, armorTrim);
 					}
 					mobEntity.equipStack(equipmentSlot, armor_piece);
 				}
@@ -348,7 +349,7 @@ public class StrongerMobsMod implements ModInitializer {
 			put(ArmorTrimMaterials.LAPIS,ArmorTrimMaterialLapisWeight);
 			put(ArmorTrimMaterials.AMETHYST,ArmorTrimMaterialAmethystWeight);
 		}};
-		Map<ArmorMaterial, RegistryKey<ArmorTrimMaterial>> materialToTrim = new HashMap<>() {{
+		Map<RegistryEntry<ArmorMaterial>, RegistryKey<ArmorTrimMaterial>> materialToTrim = new HashMap<>() {{
 			put(ArmorMaterials.IRON,ArmorTrimMaterials.IRON);
 			put(ArmorMaterials.NETHERITE,ArmorTrimMaterials.NETHERITE);
 			put(ArmorMaterials.GOLD,ArmorTrimMaterials.GOLD);
@@ -361,7 +362,7 @@ public class StrongerMobsMod implements ModInitializer {
 		return ArmorTrimMaterialRegistry.getEntry(ArmorTrimMaterialRegistry.get(pattern));
 	}
 
-	private static ArmorTrim getTrim(Random random, MobEntity mobEntity, ArmorMaterial armorMaterial) {
+	private static ArmorTrim getTrim(Random random, MobEntity mobEntity, RegistryEntry<ArmorMaterial> armorMaterial) {
 		if (
 				armorMaterial != ArmorMaterials.GOLD
 				&& armorMaterial != ArmorMaterials.DIAMOND
@@ -374,7 +375,7 @@ public class StrongerMobsMod implements ModInitializer {
 		if (trim == null){
 			return null;
 		}
-		RegistryEntry<ArmorTrimMaterial> mat = getTrimMaterial(random, mobEntity.getWorld(), armorMaterial);
+		RegistryEntry<ArmorTrimMaterial> mat = getTrimMaterial(random, mobEntity.getWorld(), armorMaterial.value());
 		return new ArmorTrim(mat, trim);
 	}
 	private static ArmorTrim getPiglinTrimGold(RegistryEntry<ArmorTrimPattern> trim, World world){
