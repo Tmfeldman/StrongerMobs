@@ -3,6 +3,8 @@ package net.steakboi.strongermobs;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
@@ -71,6 +73,10 @@ public class StrongerMobsMod implements ModInitializer {
 		put(PiglinGearType.GOLD, Gold);
 	}};
 
+	public static void addEnchantment(ItemStack weapon, Entity entity, RegistryKey<Enchantment> enchantment, int level) {
+		if (level > 0) weapon.addEnchantment(entity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(enchantment).get(), level);
+	}
+
 	public static ItemStack getPiglinSword(Random random, MobEntity mobEntity) {
 		int gold_sword_weight = max(ModConfigs.NetherGoldSwordWeight,0);
 		int netherite_sword_weight = max(ModConfigs.NetherNetheriteSwordWeight,0);
@@ -91,9 +97,9 @@ public class StrongerMobsMod implements ModInitializer {
 		Item weaponItem = pickWeighted(weightmap, random);
 		ItemStack weapon = new ItemStack(weaponItem);
 
-		weapon.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(SHARPNESS).get(), sharpness_level);
-		if (random.nextInt(100) < fireAspectChance) weapon.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(FIRE_ASPECT).get(),2);
-		if (random.nextInt(100) < knockbackChance) weapon.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(KNOCKBACK).get(),2);
+		addEnchantment(weapon, mobEntity, SHARPNESS, sharpness_level);
+		if (random.nextInt(100) < fireAspectChance) addEnchantment(weapon, mobEntity, FIRE_ASPECT, 2);
+		if (random.nextInt(100) < knockbackChance) addEnchantment(weapon, mobEntity, KNOCKBACK, 2);
 		return weapon;
 	}
 
@@ -109,9 +115,9 @@ public class StrongerMobsMod implements ModInitializer {
 		int punchChance = max(min(ModConfigs.OverworldSkeletonPunchChance, 100), 0);
 
 		ItemStack bow = new ItemStack(Items.BOW);
-		bow.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(POWER).get(), power_level);
-		if (random.nextInt(100) < punchChance) bow.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PUNCH).get(), random.nextInt(2)+1);
-		if (random.nextInt(100) < flameChance) bow.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(FLAME).get(), 1);
+		addEnchantment(bow, mobEntity, POWER, power_level);
+		if (random.nextInt(100) < punchChance) addEnchantment(bow, mobEntity, PUNCH,  random.nextInt(2)+1);
+		if (random.nextInt(100) < flameChance) addEnchantment(bow, mobEntity, FLAME,  1);
 		return bow;
 	}
 
@@ -141,11 +147,9 @@ public class StrongerMobsMod implements ModInitializer {
 			Item weaponItem = pickWeighted(weightmap, random);
 			ItemStack weapon = new ItemStack(weaponItem);
 
-			weapon.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(SHARPNESS).get(), sharpness_level);
-			if (random.nextInt(100) < fireAspectChance)
-				weapon.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(FIRE_ASPECT).get(), 2);
-			if (random.nextInt(100) < knockbackChance)
-				weapon.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(KNOCKBACK).get(), 2);
+			addEnchantment(weapon, mobEntity, SHARPNESS, sharpness_level);
+			if (random.nextInt(100) < fireAspectChance) addEnchantment(weapon, mobEntity, FIRE_ASPECT, 2);
+			if (random.nextInt(100) < knockbackChance) addEnchantment(weapon, mobEntity, KNOCKBACK, 2);
 			return weapon;
 		}
 		return null;
@@ -192,7 +196,7 @@ public class StrongerMobsMod implements ModInitializer {
 		Item armorItem = pickWeighted(weightmap, random);
 
 		ItemStack armorPiece = new ItemStack(armorItem);
-		armorPiece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protection_level);
+		addEnchantment(armorPiece, mobEntity, PROTECTION, protection_level);
 		if (trimGold != null && trimNetherite != null) {
 			if (((ArmorItem)armorItem).getMaterial() == ArmorMaterials.NETHERITE) {
 				armorPiece.set(DataComponentTypes.TRIM, trimNetherite);
@@ -253,7 +257,7 @@ public class StrongerMobsMod implements ModInitializer {
 				Item item = getEquipmentForSlot(equipmentSlot, quality);
 				if (item != null) {
 					ItemStack armor_piece = new ItemStack(item);
-					armor_piece.addEnchantment(mobEntity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(PROTECTION).get(), protectionLevel);
+					addEnchantment(armor_piece, mobEntity, PROTECTION, protectionLevel);
 					if (armorTrim != null) {
 						armor_piece.set(DataComponentTypes.TRIM, armorTrim);
 					}
