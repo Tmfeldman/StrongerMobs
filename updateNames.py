@@ -1,5 +1,5 @@
 ################################
-# USAGE: python .\updateName.py Better Concrete Conversion
+# USAGE: python .\updateNames.py Better Concrete Conversion
 ################################
 import sys
 import os
@@ -49,10 +49,7 @@ for file in Files:
 
     os.rename(file, newFileName)
 
-for directory in Directories:
-    if old_modid in directory:
-        toplevel = os.path.dirname(directory)
-        path = os.path.relpath(directory, toplevel)
-        new_directory = toplevel.replace(old_modid, modid)
-        new_path = os.path.join(new_directory, new_directory)
+for directory in sorted(Directories, key=lambda p: p.count(os.sep), reverse=True):
+    if old_modid in directory.split('\\')[-1]:
+        new_path = directory.replace(old_modid, modid)
         os.rename(directory, new_path)
