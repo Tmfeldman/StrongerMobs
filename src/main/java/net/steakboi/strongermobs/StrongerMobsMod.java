@@ -1,7 +1,9 @@
 package net.steakboi.strongermobs;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
@@ -58,6 +60,10 @@ public class StrongerMobsMod implements ModInitializer {
 		return null;
 	}
 
+	public static void addEnchantment(ItemStack item, Enchantment enchantment, int level) {
+		if (level > 0) 	item.addEnchantment(PROTECTION, level);
+	}
+
 	public static Map<PiglinGearType, Map<EquipmentSlot, Item>> PiglinArmorMap = new HashMap<>(){{
 		Map<EquipmentSlot, Item> Netherite = new HashMap<>(){{
 			put(EquipmentSlot.HEAD, Items.NETHERITE_HELMET);
@@ -95,9 +101,9 @@ public class StrongerMobsMod implements ModInitializer {
 		Item weaponItem = pickWeighted(weightmap, random);
 		ItemStack weapon = new ItemStack(weaponItem);
 
-		weapon.addEnchantment(SHARPNESS, sharpness_level);
-		if (random.nextInt(100) < fireAspectChance) weapon.addEnchantment(FIRE_ASPECT,2);
-		if (random.nextInt(100) < knockbackChance) weapon.addEnchantment(KNOCKBACK,2);
+		addEnchantment(weapon, SHARPNESS, sharpness_level);
+		if (random.nextInt(100) < fireAspectChance) addEnchantment(weapon, FIRE_ASPECT,2);
+		if (random.nextInt(100) < knockbackChance) addEnchantment(weapon, KNOCKBACK,2);
 		return weapon;
 	}
 
@@ -113,9 +119,9 @@ public class StrongerMobsMod implements ModInitializer {
 		int punchChance = max(min(ModConfigs.OverworldSkeletonPunchChance, 100), 0);
 
 		ItemStack bow = new ItemStack(Items.BOW);
-		bow.addEnchantment(POWER, power_level);
-		if (random.nextInt(100) < punchChance) bow.addEnchantment(PUNCH, random.nextInt(2)+1);
-		if (random.nextInt(100) < flameChance) bow.addEnchantment(FLAME, 1);
+		addEnchantment(bow, POWER, power_level);
+		if (random.nextInt(100) < punchChance) addEnchantment(bow, PUNCH, random.nextInt(2)+1);
+		if (random.nextInt(100) < flameChance) addEnchantment(bow, FLAME, 1);
 		return bow;
 	}
 
@@ -145,11 +151,9 @@ public class StrongerMobsMod implements ModInitializer {
 			Item weaponItem = pickWeighted(weightmap, random);
 			ItemStack weapon = new ItemStack(weaponItem);
 
-			weapon.addEnchantment(SHARPNESS, sharpness_level);
-			if (random.nextInt(100) < fireAspectChance)
-				weapon.addEnchantment(FIRE_ASPECT, 2);
-			if (random.nextInt(100) < knockbackChance)
-				weapon.addEnchantment(KNOCKBACK, 2);
+			addEnchantment(weapon, SHARPNESS, sharpness_level);
+			if (random.nextInt(100) < fireAspectChance) addEnchantment(weapon, FIRE_ASPECT,2);
+			if (random.nextInt(100) < knockbackChance) addEnchantment(weapon, KNOCKBACK,2);
 			return weapon;
 		}
 		return null;
@@ -197,7 +201,7 @@ public class StrongerMobsMod implements ModInitializer {
 		Item armorItem = pickWeighted(weightmap, random);
 
 		ItemStack armorPiece = new ItemStack(armorItem);
-		armorPiece.addEnchantment(PROTECTION, protection_level);
+		addEnchantment(armorPiece, PROTECTION, protection_level);
 		if (trimGold != null && trimNetherite != null) {
 			if (((ArmorItem)armorItem).getMaterial() == ArmorMaterials.NETHERITE) {
 				armorPiece.set(DataComponentTypes.TRIM, trimNetherite);
@@ -257,7 +261,7 @@ public class StrongerMobsMod implements ModInitializer {
 				Item item = getEquipmentForSlot(equipmentSlot, quality);
 				if (item != null) {
 					ItemStack armor_piece = new ItemStack(item);
-					armor_piece.addEnchantment(PROTECTION, protectionLevel);
+					addEnchantment(armor_piece, PROTECTION, protectionLevel);
 					if (armorTrim != null) {
 						armor_piece.set(DataComponentTypes.TRIM, armorTrim);
 					}
@@ -365,9 +369,9 @@ public class StrongerMobsMod implements ModInitializer {
 	private static ArmorTrim getTrim(Random random, MobEntity mobEntity, RegistryEntry<ArmorMaterial> armorMaterial) {
 		if (
 				armorMaterial != ArmorMaterials.GOLD
-				&& armorMaterial != ArmorMaterials.DIAMOND
-				&& armorMaterial != ArmorMaterials.NETHERITE
-				&& armorMaterial != ArmorMaterials.IRON
+						&& armorMaterial != ArmorMaterials.DIAMOND
+						&& armorMaterial != ArmorMaterials.NETHERITE
+						&& armorMaterial != ArmorMaterials.IRON
 		) {
 			return null;
 		}
