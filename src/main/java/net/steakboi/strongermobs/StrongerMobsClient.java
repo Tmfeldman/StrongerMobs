@@ -1,8 +1,8 @@
-package net.steakboi.timomod;
+package net.steakboi.strongermobs;
 
 import net.fabricmc.api.ClientModInitializer;
 
-public class TimoModClient implements ClientModInitializer {
+public class StrongerMobsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
