@@ -78,7 +78,7 @@ public class StrongerMobsMod implements ModInitializer {
 	}};
 
 	public static void addEnchantment(ItemStack weapon, Entity entity, RegistryKey<Enchantment> enchantment, int level) {
-		weapon.addEnchantment(entity.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()).get(), level);
+		if (level > 0) weapon.addEnchantment(entity.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()).get(), level);
 	}
 
 	public static ItemStack getPiglinSword(Random random, MobEntity mobEntity) {
