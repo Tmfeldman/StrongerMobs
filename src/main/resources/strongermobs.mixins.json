@@ -3,7 +3,11 @@
 	"package": "net.steakboi.strongermobs.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"StrongerZombieMixin",
+		"StrongerSkeletonMixin",
+		"StrongerDrownedMixin",
+		"StrongerPiglinMixin",
+		"StrongerZombiePiglinMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
