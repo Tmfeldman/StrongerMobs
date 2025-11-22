@@ -3,7 +3,7 @@
 	"id": "strongermobs",
 	"version": "${version}",
 	"name": "Stronger Mobs",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Makes Vanilla mobs stronger",
 	"authors": [
 		"Me!"
 	],
@@ -29,7 +29,7 @@
 		"strongermobs.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.18.1",
+		"fabricloader": ">=0.17.3",
 		"minecraft": "~1.21.10",
 		"java": ">=21",
 		"fabric-api": "*"
